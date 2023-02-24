@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('car_model_id');
             $table->string('plate', 10)->unique();
             $table->boolean('available');
             $table->integer('km');

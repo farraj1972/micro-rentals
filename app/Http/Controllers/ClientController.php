@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CarModel;
+use App\Models\Client;
+use App\Models\Rental;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
-class CarModelController extends Controller
+class ClientController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return Client::all();
     }
 
     /**
@@ -21,13 +22,13 @@ class CarModelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Client::create($request->all());
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(CarModel $carModel)
+    public function show(Client $client)
     {
         //
     }
@@ -35,7 +36,7 @@ class CarModelController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CarModel $carModel)
+    public function update(Request $request, Client $client)
     {
         //
     }
@@ -43,17 +44,19 @@ class CarModelController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CarModel $carModel)
+    public function destroy(Client $client)
     {
         //
     }
 
-    public function store_vehicle(Request $request, CarModel $carmodel) {
+    public function store_rental(Request $request, Client $client, Vehicle $vehicle) {
 
-        $vehicle = new Vehicle($request->all());
+        $rental = new Rental($request->all());
 
-        $vehicle = $carmodel->vehicles()->save($vehicle);
+        $rental->client_id = $client->id;
 
-        return $vehicle;
+        $rental = $vehicle->rentals()->save($rental);
+
+        return $rental;
     }
 }
